@@ -1,0 +1,1 @@
+***Pytex takes a json/yaml file contaning index structure of a scientific article and build a directory structure to contain the the article project
