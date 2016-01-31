@@ -1,0 +1,80 @@
+{
+    "documentclass" : 
+        {
+            "option" : ["10pt", "final", "english"],
+            "class" : "article"
+        },
+
+    "packages" :
+        {
+            "use": 
+                {
+                "inputenc" : "utf8",
+                "hyperref" : null,
+                "amssymb"  : null,
+                "graphicx" : null,
+                "geometry" : null
+                },
+
+            "hypersetup" : 
+                {
+                    "colorlinks" : false,
+                    "pdftitle" : "PDF title example",
+                    "pdfauthor" : "author",
+                    "pdfsubject" : "subject",
+                    "pdfkeywords" : "keywords"
+                },
+
+            "geometry" : 
+                {
+                    "a4paper" : null,
+                    "scale" : [0.72, 0.8]
+                }
+
+        },
+
+    "documentinfo" : {
+        "title" : "Paper Title",
+
+        "author" : 
+            {
+                "author1" : "Pinco Pallo",
+                "author2" : "Pallo Pinco"
+            }
+    },
+    
+    "bibtex" : {
+            "style" : "IEEEtran",
+            "location" : null
+    },
+
+    "sections" :
+        {
+            "Introduction" : null,
+            "Related works" : null, 
+            "Methodology" : [
+                {
+                    "Dataset" : null
+                },
+                {
+                    "Landmarks" : [
+                        { 
+                            "Estimation" : null, 
+                            "Tracking" : null
+                        }
+                    ]
+                },
+                {
+                    "Classification" : [
+                        {
+                            "K-nearest Neighbour" : null, 
+                            "SVM Classifier" : null, 
+                            "Bag-of-Feature SVM Classifier" : null
+                        }
+                    ]
+                }
+            ],
+            "Results" : null,
+            "Conclusion": null
+        }
+}
