@@ -3,26 +3,32 @@ import argparse
 import os
 import os.path as path
 
-sec_lev =  ['\section', '\subsection', '\subsubsection', '\paragraph']
+sec_lev = ['\section', '\subsection', '\subsubsection', '\paragraph']
+lab_lev = ['sec:', 'subsec:', 'subsubsec:', 'par:']
 
 def make_directory(root, section, level):
     if isinstance(section, str):
         try:
             print('Make dir: ' + path.join(root, section))
-            os.makedirs(path.join(root, section))
-            os.makedirs(path.join(root, section, 'fig'))
+            os.makedirs(path.join(root, section.replace(' ', '-')))
+            os.makedirs(path.join(root, section.replace(' ', '-'), 'fig'))
         except OSError:
             pass
-        f = open(path.join(root, section, section + '.tex'), 'w+')
+        f = open(path.join(root, section.replace(' ', '-'), section.replace(' ', '-') + '.tex'), 'w')
         f.write(sec_lev[level] + '{' + section + '}\n')
+        f.write('\\label{' + lab_lev[level] + section +'}\n')
         f.close()
     elif isinstance(section, dict):
         for k,v in section.items():
-            if not v:
-                make_directory(root, k, level)
-            else:
-                make_directory(path.join(root, k), v, level+1)
-
+            try:
+                os.makedirs(path.join(root, k.replace(' ', '-')))
+            except OSError:
+                pass
+            f = open(path.join(root, k.replace(' ', '-'), k.replace(' ', '-') + '.tex'), 'w')
+            f.write(sec_lev[level] + '{' + k + '}\n')
+            f.write('\\label{' + lab_lev[level] + k +'}\n')
+            f.close()
+            make_directory(path.join(root, k), v, level+1)
     elif isinstance(section, list):
         for s in section:
             make_directory(root, s, level)
@@ -30,13 +36,14 @@ def make_directory(root, section, level):
 def get_tex_files(root, section):
     files = list()
     if isinstance(section, str):
-        return [path.join(root,section)]
+        return [path.join(root, section.replace(' ', '-'), section.replace(' ', '-') + '.tex')]
     elif isinstance(section, list):
         for s in section:
             files += get_tex_files(root,s)
         return files
     elif isinstance(section,dict):
-        for k,v in section.items():        
+        for k,v in section.items():
+            files += [path.join(root, k.replace(' ', '-'), k.replace(' ', '-') + '.tex')]
             files += get_tex_files(path.join(root, k),v)
         return files
 
@@ -56,7 +63,7 @@ def make_tex_file(root_dir, data):
             f.write(', '.join(documentclass['option']))
             f.write(']')
         f.write('{' + documentclass['class'] + '}\n')
-
+        f.write('\n')
 
         for name, opt in packages.items():
             f.write('\\usepackage')
@@ -81,6 +88,7 @@ def make_tex_file(root_dir, data):
                     opt += ['\t' + name]
             f.write(',\n'.join(opt))
             f.write('}\n')
+        f.write('\n')
 
 
         for k,v in documentinfo.items():
@@ -88,29 +96,34 @@ def make_tex_file(root_dir, data):
                 f.write('\\' + k + '{' + v + '}\n')
             else:
                 [f.write('\\' + k + '{' + val + '}\n') for val in v ]
+            f.write('\n')
 
-        f.write('\\begin{document}\n')
-        f.write('\\maketitle\n')
-        
+
+        f.write('\\begin{document}\n\n')
+        f.write('\t\\maketitle\n\n')
+        f.write('\t\\begin{abstract}\n\n\t\\end{abstract}\n\n')
         #for root, dirnames, files in os.walk(root_dir):
         #    for filename in files:
         #        if not filename == 'main.tex' and filename.endswith('.tex'):
         #            f.write('\\include{' + path.join(root,filename) + '}\n\n')
         
         for s in get_tex_files(root_dir, sections):
-            f.write('\\include{' + s + '}\n\n')
+            f.write('\t\\input{' + path.relpath(s, root_dir) + '}\n\n')
 
 
         if bibtex:
-            f.write('\\bibliographystyle{' + bibtex['style'] + '}\n')
+            f.write('\t\\bibliographystyle{' + bibtex['style'] + '}\n')
             if bibtex['location']:
-                f.write('\\bibliography{' + bibtex['location'] + '}\n')
+                f.write('\t\\bibliography{' + bibtex['location'] + '}\n')
             else:
                 try:
-                    os.makedirs(path.join(root_dir, 'bib', 'bibliography.bib'))
+                    os.makedirs(path.join(root_dir, 'bib'))
                 except OSError:
                     pass
-                f.write('\\bibliography{' + path.join(root_dir, 'bib', 'bibliography.bib') + '}\n')
+                open(path.join(root_dir, 'bib', 'bibliography.bib'), 'w').close()
+                f.write('\t\\bibliography{' + path.join(root_dir, 'bib', 'bibliography.bib') + '}\n')
+        
+        f.write('\n')
         f.write('\\end{document}\n')  
 
 
@@ -138,5 +151,5 @@ if __name__ == '__main__':
 
     # Make main Tex file
     print('Create main.tex ...', end='');
-    make_tex_file(root_dir, data)
+    make_tex_file(args.project_dir, data)
     print('done')
