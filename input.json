@@ -1,14 +1,11 @@
 {
-    "documentclass" : 
-        {
+    "documentclass" : {
             "option" : ["10pt", "final", "english"],
             "class" : "article"
-        },
+    },
 
-    "packages" :
-        {
-            "use": 
-                {
+    "packages" : {
+            "use": {
                 "inputenc" : "utf8",
                 "hyperref" : null,
                 "amssymb"  : null,
@@ -16,22 +13,21 @@
                 "geometry" : null
                 },
 
-            "hypersetup" : 
-                {
-                    "colorlinks" : false,
-                    "pdftitle" : "PDF title example",
-                    "pdfauthor" : "author",
-                    "pdfsubject" : "subject",
-                    "pdfkeywords" : "keywords"
-                },
+            "setup" : {
+                "hypersetup" : {
+                        "colorlinks" : false,
+                        "pdftitle" : "PDF title example",
+                        "pdfauthor" : "author",
+                        "pdfsubject" : "subject",
+                        "pdfkeywords" : "keywords"
+                    },
 
-            "geometry" : 
-                {
-                    "a4paper" : null,
-                    "scale" : [0.72, 0.8]
-                }
-
-        },
+                "geometry" : {
+                        "a4paper" : null,
+                        "scale" : [0.72, 0.8]
+                    }
+            }
+    },
 
     "documentinfo" : {
         "title" : "Paper Title",
@@ -49,32 +45,28 @@
     },
 
     "sections" :
-        {
-            "Introduction" : null,
-            "Related works" : null, 
-            "Methodology" : [
-                {
-                    "Dataset" : null
-                },
-                {
-                    "Landmarks" : [
-                        { 
-                            "Estimation" : null, 
-                            "Tracking" : null
-                        }
-                    ]
-                },
-                {
-                    "Classification" : [
-                        {
-                            "K-nearest Neighbour" : null, 
-                            "SVM Classifier" : null, 
-                            "Bag-of-Feature SVM Classifier" : null
-                        }
-                    ]
-                }
-            ],
-            "Results" : null,
-            "Conclusion": null
-        }
+        [
+            "Introduction",
+            "Related works", 
+            {
+                "Methodology" : [
+                    "Dataset",
+                    {
+                        "Landmarks" : [
+                                "Estimation", 
+                                "Tracking"
+                        ]
+                    },
+                    {
+                        "Classification" : [
+                                "K-nearest Neighbour",
+                                "SVM Classifier", 
+                                "Bag-of-Feature SVM Classifier"
+                        ]
+                    }
+                ]
+            },
+            "Results",
+            "Conclusion"
+        ]
 }

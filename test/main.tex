@@ -1,15 +1,42 @@
-\documentclass{article}
-\geometry{	scale={[, 0, ., 7, 2, ,,  , 0, ., 8, ]}
-geometry,}\usepackage{graphicx}
+\documentclass[10pt, final, english]{article}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry}
 \usepackage{amssymb}
-\hypersetup{	pdftitle={PDF title example}
-hypersetup,	pdfsubject={subject}
-	pdfauthor={author}
-	pdfkeywords={keywords}
-}\author{Pinco Pallo}
+\geometry{
+	scale={0.72, 0.8},
+	a4paper}
+\hypersetup{
+	pdftitle={PDF title example},
+	pdfsubject={subject},
+	pdfauthor={author},
+	pdfkeywords={keywords}}
+\author{Pinco Pallo}
 \author{Pallo Pinco}
 \title{Paper Title}
 \begin{document}
+\maketitle
+\include{/home/sfrullo/projects/pytex/test/Introduction}
+
+\include{/home/sfrullo/projects/pytex/test/Related works}
+
+\include{/home/sfrullo/projects/pytex/test/Methodology/Dataset}
+
+\include{/home/sfrullo/projects/pytex/test/Methodology/Landmarks/Estimation}
+
+\include{/home/sfrullo/projects/pytex/test/Methodology/Landmarks/Tracking}
+
+\include{/home/sfrullo/projects/pytex/test/Methodology/Classification/K-nearest Neighbour}
+
+\include{/home/sfrullo/projects/pytex/test/Methodology/Classification/SVM Classifier}
+
+\include{/home/sfrullo/projects/pytex/test/Methodology/Classification/Bag-of-Feature SVM Classifier}
+
+\include{/home/sfrullo/projects/pytex/test/Results}
+
+\include{/home/sfrullo/projects/pytex/test/Conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{/home/sfrullo/projects/pytex/test/bib/bibliography.bib}
+\end{document}
