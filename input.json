@@ -32,11 +32,10 @@
     "documentinfo" : {
         "title" : "Paper Title",
 
-        "author" : 
-            {
-                "author1" : "Pinco Pallo",
-                "author2" : "Pallo Pinco"
-            }
+        "author" : [
+                "Pinco Pallo",
+                "Pallo Pinco"
+            ]
     },
     
     "bibtex" : {

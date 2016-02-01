@@ -87,7 +87,7 @@ def make_tex_file(root_dir, data):
             if isinstance(v,str):
                 f.write('\\' + k + '{' + v + '}\n')
             else:
-                [f.write('\\' + k + '{' + val + '}\n') for val in v.values() ]
+                [f.write('\\' + k + '{' + val + '}\n') for val in v ]
 
         f.write('\\begin{document}\n')
         f.write('\\maketitle\n')
